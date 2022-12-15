@@ -16,9 +16,30 @@ function App() {
   const [gameStage, setGameStage] = useState(stages[0].name)
   const [words] = useState(wordList);
 
+  const [pickedWord, setPickedWorld] = useState("");
+  const [pickedCategory, setPickedCategory] = useState("");
+  const [letters, setLetters] = useState([]);
+
+  // funcao para criar a aleatoriedade na categoria
+  const pegarPalavraeCategoria = () => {
+    const categories = Object.keys(words) // passa para categories todas as chaves da word que recebeu anteriormente a wordlist
+    const category = categories[Math.floor(Math.random() * Object.keys(categories).length)]  
+
+    console.log(category);
+
+    // funcao para criar a aleatoriedade na palavra
+    const word = words[category][Math.floor(Math.random() * words(category).length)];  
+
+    console.log(word)
+    
+  };
+
 
   // startando o secret word
   const startGame = () => {
+    // pegar a palavra e a categoria
+    pegarPalavraeCategoria();
+
     setGameStage(stages[1].name)
   };
 
