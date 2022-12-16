@@ -51,6 +51,10 @@ function App() {
     console.log(word, category);
     console.log(wordLetters);
 
+    // preenchendo estados
+    setPickedWorld(word)
+    setPickedCategory(category)
+    setLetters(letters)
 
     setGameStage(stages[1].name)
   };
