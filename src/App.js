@@ -28,17 +28,29 @@ function App() {
     console.log(category);
 
     // funcao para criar a aleatoriedade na palavra
-    const word = words[category][Math.floor(Math.random() * words(category).length)];  
+    const word = 
+      words[category][Math.floor(Math.random() * words[category].length)];  
 
-    console.log(word)
+    console.log(word);
     
+    return {word, category}
   };
 
 
   // startando o secret word
   const startGame = () => {
     // pegar a palavra e a categoria
-    pegarPalavraeCategoria();
+    const {word, category} = pegarPalavraeCategoria();
+
+    // criando uma array de letras
+    let wordLetters = word.split("") // o split sem espaço vai tranformar a palavra em uma array com suas letras
+    wordLetters = wordLetters.map((min) => min.toLowerCase()); // faz um lopping para tranformar todas em minuscula
+
+
+
+    console.log(word, category);
+    console.log(wordLetters);
+
 
     setGameStage(stages[1].name)
   };
