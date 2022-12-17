@@ -20,7 +20,7 @@
     flex-direction: row;
 }
 
-.letter, .Square {
+.letter, .blankSquare {
     
     font-size: 70px;
     line-height: 1.5;
