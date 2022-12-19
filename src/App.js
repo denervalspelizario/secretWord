@@ -28,7 +28,7 @@ function App() {
   const [score, setScore] = useState(0);
 
   // funcao para criar a aleatoriedade na categoria
-  const pegarPalavraeCategoria = () => {
+  const pegarPalavraeCategoria = useCallback(() => {
     const categories = Object.keys(words) // passa para categories todas as chaves da word que recebeu anteriormente a wordlist
     const category = categories[Math.floor(Math.random() * Object.keys(categories).length)]  
 
@@ -41,11 +41,16 @@ function App() {
     console.log(word);
     
     return {word, category}
-  };
+  },[words]);
 
 
   // startando o secret word
-  const startGame = () => {
+  const startGame = useCallback(() => {
+    // clear all letters
+      clearLetterStates();
+
+
+
     // pegar a palavra e a categoria
     const {word, category} = pegarPalavraeCategoria();
 
@@ -64,7 +69,7 @@ function App() {
     setLetters(wordLetters);
 
     setGameStage(stages[1].name);
-  };
+  },[pegarPalavraeCategoria]);
 
 
   // process the letter input
@@ -104,7 +109,9 @@ function App() {
   }
 
 
-  
+  //check if  guessed ended
+
+
   useEffect(() => {
 
     if(guesses <= 0){
@@ -115,6 +122,24 @@ function App() {
     };
 
   },[guesses])
+
+  // check win condition
+  useEffect(() => {
+
+    const uniqueLetters = [...new Set(letters)];
+
+    // win condition
+    if(guessedLetters.length === uniqueLetters.length){
+      // add score
+      setScore((actualScore) => actualScore += 100)
+
+      // restart game with new word
+      startGame();
+
+    }
+
+  }, [guessedLetters, letters, startGame])
+
 
   // restartando o jogo
   const retry = () => {
